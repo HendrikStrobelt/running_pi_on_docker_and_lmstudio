@@ -1,6 +1,6 @@
 # pi in Docker on Apple Silicon
 
-Run [`pi`](https://github.com/earendil-works/pi-coding-agent) (the `@earendil-works/pi-coding-agent` CLI) inside a sandboxed Docker container on an M-series Mac, with a local model served by LM Studio available to it alongside Anthropic models.
+Run [`pi`](https://github.com/earendil-works/pi-coding-agent) (the `@earendil-works/pi-coding-agent` CLI) inside a sandboxed Docker container on an M-series Mac, with a local model served by LM Studio. Optionally use Anthropic models by providing an API key.
 
 **This setup allows you to use the same config/skills/extensions inside and outside the container**
 ## Repo contents
@@ -52,16 +52,17 @@ Run [`pi`](https://github.com/earendil-works/pi-coding-agent) (the `@earendil-wo
 
 ## 3. Run the container
 
-Make sure `ANTHROPIC_API_KEY` is exported in your shell (e.g. `export ANTHROPIC_API_KEY=sk-ant-...`), then from the project/workspace directory you want mounted in:
+Optionally export `ANTHROPIC_API_KEY` in your shell (e.g. `export ANTHROPIC_API_KEY=sk-ant-...`) if you want to use Anthropic models. Then from the project/workspace directory you want mounted in:
 
 ```bash
 docker run --rm -it \
-  -e ANTHROPIC_API_KEY \
   -v "$PWD:/workspace" \
   -v "$HOME/.pi/agent:/root/.pi/agent" \
   -e LM_STUDIO_BASE_URL="http://host.docker.internal:1234/v1" \
   pi-sandbox
 ```
+
+> **Optional:** To use Anthropic models, add `-e ANTHROPIC_API_KEY` to the command above (make sure `ANTHROPIC_API_KEY` is exported in your shell).
 
 - `-v "$PWD:/workspace"` mounts your current project into the sandbox at `/workspace`.
 - `-v "/Users/hen/.pi/agent:/root/.pi/agent"` shares the host's `pi` config (including `models.json` and the extension you just copied) with the container.
