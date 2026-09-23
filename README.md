@@ -58,7 +58,7 @@ Make sure `ANTHROPIC_API_KEY` is exported in your shell (e.g. `export ANTHROPIC_
 docker run --rm -it \
   -e ANTHROPIC_API_KEY \
   -v "$PWD:/workspace" \
-  -v "/Users/hen/.pi/agent:/root/.pi/agent" \
+  -v "$HOME/.pi/agent:/root/.pi/agent" \
   -e LM_STUDIO_BASE_URL="http://host.docker.internal:1234/v1" \
   pi-sandbox
 ```
