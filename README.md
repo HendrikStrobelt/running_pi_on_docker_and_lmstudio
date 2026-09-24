@@ -58,8 +58,10 @@ Optionally export `ANTHROPIC_API_KEY` in your shell (e.g. `export ANTHROPIC_API_
 docker run --rm -it \
   -v "$PWD:/workspace" \
   -v "$HOME/.pi/agent:/root/.pi/agent" \
-  -e LM_STUDIO_BASE_URL="http://host.docker.internal:1234/v1" \
-  pi-sandbox
+ -e LM_STUDIO_BASE_URL="http://host.docker.internal:1234/v1" \
+ -p 8787:8787 \
+ -e PI_WEB_HOST=0.0.0.0 \
+ pi-sandbox
 ```
 
 > **Optional:** To use Anthropic models, add `-e ANTHROPIC_API_KEY` to the command above (make sure `ANTHROPIC_API_KEY` is exported in your shell).
